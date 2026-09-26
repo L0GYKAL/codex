@@ -24,8 +24,8 @@ use codex_rollout::ReverseJsonlScanner;
 use codex_rollout::RolloutItem;
 use codex_rollout::ScanOutcome;
 
-const MAX_TRANSCRIPT_PREVIEW_LINES: usize = 6;
-const TRANSCRIPT_PREVIEW_ITEMS_PAGE_SIZE: u32 = 6;
+const MAX_TRANSCRIPT_PREVIEW_LINES: usize = 10;
+const TRANSCRIPT_PREVIEW_ITEMS_PAGE_SIZE: u32 = 10;
 const MAX_LEGACY_TRANSCRIPT_PREVIEW_SCAN_BYTES: usize = 1024 * 1024;
 
 /// Loads the newest transcript lines from bounded paginated items or a local legacy rollout tail.
