@@ -5857,11 +5857,43 @@ session_picker_view = "dense"
                         r#"Here are the *last* lines: [docs](https://example.com) :codex-file-citation{path="/tmp/codex/report.xlsx"}."#,
                     ),
                 },
+                TranscriptPreviewLine {
+                    speaker: TranscriptPreviewSpeaker::User,
+                    text: String::from("Check the picker layout"),
+                },
+                TranscriptPreviewLine {
+                    speaker: TranscriptPreviewSpeaker::Assistant,
+                    text: String::from("The title remains visible"),
+                },
+                TranscriptPreviewLine {
+                    speaker: TranscriptPreviewSpeaker::User,
+                    text: String::from("Keep the metadata too"),
+                },
+                TranscriptPreviewLine {
+                    speaker: TranscriptPreviewSpeaker::Assistant,
+                    text: String::from("The metadata is unchanged"),
+                },
+                TranscriptPreviewLine {
+                    speaker: TranscriptPreviewSpeaker::User,
+                    text: String::from("Show the newest messages"),
+                },
+                TranscriptPreviewLine {
+                    speaker: TranscriptPreviewSpeaker::Assistant,
+                    text: String::from("All ten lines fit"),
+                },
+                TranscriptPreviewLine {
+                    speaker: TranscriptPreviewSpeaker::User,
+                    text: String::from("Finish the preview"),
+                },
+                TranscriptPreviewLine {
+                    speaker: TranscriptPreviewSpeaker::Assistant,
+                    text: String::from("The final line is visible"),
+                },
             ]),
         );
 
         let width: u16 = 90;
-        let height: u16 = 11;
+        let height: u16 = 19;
         let backend = VT100Backend::new(width, height);
         let mut terminal = Terminal::with_options(backend).expect("terminal");
         terminal.set_viewport_area(Rect::new(0, 0, width, height));
