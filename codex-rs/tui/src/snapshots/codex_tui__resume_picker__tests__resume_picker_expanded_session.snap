@@ -11,4 +11,12 @@ expression: rendered
   │
   │ Conversation:
   │ Show me the recent transcript
-  └ Here are the last lines: docs (https://example.com) report.xlsx.
+  │ Here are the last lines: docs (https://example.com) report.xlsx.
+  │ Check the picker layout
+  │ The title remains visible
+  │ Keep the metadata too
+  │ The metadata is unchanged
+  │ Show the newest messages
+  │ All ten lines fit
+  │ Finish the preview
+  └ The final line is visible

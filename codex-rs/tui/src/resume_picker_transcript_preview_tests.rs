@@ -105,6 +105,7 @@ fn legacy_transcript_preview_scans_tail_across_compaction() {
     assert_eq!(
         lines,
         vec![
+            preview_line(TranscriptPreviewSpeaker::User, "older user"),
             preview_line(TranscriptPreviewSpeaker::Assistant, "older assistant"),
             preview_line(TranscriptPreviewSpeaker::User, "recent user"),
             preview_line(TranscriptPreviewSpeaker::Assistant, "commentary one"),
@@ -154,7 +155,7 @@ fn legacy_transcript_preview_stops_before_rollback_outside_the_tail() {
                 num_turns: 1,
             })),
             rollout_user_message("recent user"),
-            rollout_agent_message("one\ntwo\nthree\nfour\nfive\nsix"),
+            rollout_agent_message("one\ntwo\nthree\nfour\nfive\nsix\nseven\neight\nnine\nten"),
         ],
     );
 
@@ -176,6 +177,10 @@ fn legacy_transcript_preview_stops_before_rollback_outside_the_tail() {
             preview_line(TranscriptPreviewSpeaker::Assistant, "four"),
             preview_line(TranscriptPreviewSpeaker::Assistant, "five"),
             preview_line(TranscriptPreviewSpeaker::Assistant, "six"),
+            preview_line(TranscriptPreviewSpeaker::Assistant, "seven"),
+            preview_line(TranscriptPreviewSpeaker::Assistant, "eight"),
+            preview_line(TranscriptPreviewSpeaker::Assistant, "nine"),
+            preview_line(TranscriptPreviewSpeaker::Assistant, "ten"),
         ]
     );
 }
@@ -274,7 +279,7 @@ fn legacy_transcript_preview_falls_back_when_scan_budget_is_exhausted() {
 fn transcript_preview_reverse_scan_stops_before_older_items() {
     let newest = ThreadItem::AgentMessage {
         id: String::from("final"),
-        text: String::from("one\ntwo\nthree\nfour\nfive\nsix"),
+        text: String::from("one\ntwo\nthree\nfour\nfive\nsix\nseven\neight\nnine\nten"),
         phase: None,
         memory_citation: None,
         delivery: None,
@@ -285,7 +290,7 @@ fn transcript_preview_reverse_scan_stops_before_older_items() {
     append_transcript_preview_lines(
         &mut lines,
         std::iter::once(&newest).chain(std::iter::from_fn(|| {
-            panic!("preview should stop after finding six lines")
+            panic!("preview should stop after finding ten lines")
         })),
         Path::new("/tmp"),
         /*inline_visualization_context*/ None,
@@ -294,6 +299,10 @@ fn transcript_preview_reverse_scan_stops_before_older_items() {
     assert_eq!(
         lines,
         vec![
+            preview_line(TranscriptPreviewSpeaker::Assistant, "ten"),
+            preview_line(TranscriptPreviewSpeaker::Assistant, "nine"),
+            preview_line(TranscriptPreviewSpeaker::Assistant, "eight"),
+            preview_line(TranscriptPreviewSpeaker::Assistant, "seven"),
             preview_line(TranscriptPreviewSpeaker::Assistant, "six"),
             preview_line(TranscriptPreviewSpeaker::Assistant, "five"),
             preview_line(TranscriptPreviewSpeaker::Assistant, "four"),
